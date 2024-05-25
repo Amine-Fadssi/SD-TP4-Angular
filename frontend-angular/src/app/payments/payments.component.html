@@ -1,0 +1,66 @@
+<div class="container">
+  <!-- Payment table displayed in a Material card -->
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        Payments
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content></mat-card-content>
+    <mat-card-content>
+
+      <!-- Table for displaying payments data with sorting -->
+      <!-- [dataSource] binds the value of the dataSource property in the component class -->
+      <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!-- Column definition for ID -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Column definition for Date -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+        </ng-container>
+
+        <!-- Column definition for Amount -->
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+          <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+        </ng-container>
+
+        <!-- Column definition for Type -->
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+        </ng-container>
+
+        <!-- Column definition for Status -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> status </th>
+          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+
+        <!-- Column definition for Student (First Name) -->
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Student </th>
+          <td mat-cell *matCellDef="let element"> {{element.student.firstName}} </td>
+        </ng-container>
+
+        <!-- Header row definition -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <!-- Data row definition -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <!-- Paginator for navigating between pages of data -->
+      <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]"
+                     showFirstLastButtons
+                     aria-label="Select page of periodic elements">
+      </mat-paginator>
+
+    </mat-card-content>
+  </mat-card>
+</div>

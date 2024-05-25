@@ -1,0 +1,68 @@
+<!-- Toolbar component with navigation links and user actions -->
+<mat-toolbar color="primary">
+
+  <!-- Button to toggle the side drawer -->
+  <button mat-icon-button (click)="myDrawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span style="flex: auto"></span> <!-- Flex spacer to push buttons to the right -->
+
+  <!-- Navigation buttons -->
+  <button mat-button routerLink="/admin/home">Home</button>
+  <button mat-button routerLink="/admin/profile">Profile</button>
+  <!-- Button to trigger import menu (shown only for ADMIN role) -->
+  <button *ngIf="authService.roles.includes('ADMIN')" mat-button [matMenuTriggerFor]="importMenu">
+    <mat-icon iconPositionEnd>keyboard_arrow_down</mat-icon>
+    Import
+  </button>
+  <!-- Import menu -->
+  <mat-menu #importMenu>
+    <button mat-menu-item routerLink="/admin/loadStudents">Load Students</button>
+    <button mat-menu-item routerLink="/admin/loadPayments">Load Payments</button>
+  </mat-menu>
+  <!-- Display username if authenticated -->
+  <button mat-button *ngIf="authService.isAuthenticated">
+    {{authService.username}}
+  </button>
+  <!-- Logout button -->
+  <button mat-button mat-raised-button color="accent" (click)="logout()" routerLink="/login">Logout</button>
+</mat-toolbar>
+
+<!-- Drawer container with side drawer and content -->
+<mat-drawer-container>
+  <!-- Side drawer -->
+  <mat-drawer #myDrawer opened="true" mode="side" position="start">
+    <!-- List of links -->
+    <mat-list>
+      <!-- Dashboard link -->
+      <mat-list-item>
+        <button mat-button routerLink="/admin/dashboard">
+          Dashboard
+          <mat-icon>dashboard</mat-icon>
+        </button>
+      </mat-list-item>
+      <!-- Students link -->
+      <mat-list-item>
+        <button mat-button routerLink="/admin/students">
+          Students
+          <mat-icon>person</mat-icon>
+        </button>
+      </mat-list-item>
+      <!-- Payments link -->
+      <mat-list-item>
+        <button mat-button routerLink="/admin/payments">
+          Payments
+          <mat-icon>featured_play_list</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
+  <!-- Drawer content -->
+  <mat-drawer-content>
+    <div style="min-height: 600px">
+      <!-- Outlet for rendering routed components -->
+      <!-- placeholder where the content of the routed component will be dynamically rendered based on the current route. -->
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
